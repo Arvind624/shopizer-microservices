@@ -1,6 +1,5 @@
 ## Catalog api
 
-$ ./mvnw clean package && java -jar ./target/*.jar
 http://localhost:8080/actuator
 
 ## build docker image

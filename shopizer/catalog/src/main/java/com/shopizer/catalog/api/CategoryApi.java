@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CategoryApi {
 	
+
 	
-	@GetMapping("/")
-	public String test() {
-		return "This is catalog api";
-	}
+	
+
 	
 	
 	@GetMapping("/category")

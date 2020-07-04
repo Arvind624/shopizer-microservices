@@ -12,3 +12,8 @@ docker run -p 9090:8080 -t docker.io/library/catalog:0.0.1-SNAPSHOT
 
 curl http://localhost:9090/actuator
 ```
+
+//-Dspring.cloud.config.uri=http://localhost:8071 \
+//-Dspring.profiles.active=dev \
+
+

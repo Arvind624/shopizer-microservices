@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.shopizer</groupId>
-	<artifactId>shipping</artifactId>
+	<artifactId>com.shopizer.shipping</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>shipping</name>
-	<description>Shipping api</description>
+	<description>Shipping api for defining rules</description>
 
 	<properties>
 		<java.version>11</java.version>

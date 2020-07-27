@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springdoc.core.GroupedOpenApi;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopizer.shipping.model.rules.FieldFormatEnum;
+import com.shopizer.shipping.model.rules.InputResult;
+import com.shopizer.shipping.model.rules.InputRule;
+import com.shopizer.shipping.model.rules.Rule;
 import com.shopizer.shipping.model.rules.conditions.Condition;
 import com.shopizer.shipping.model.rules.conditions.ConditionOption;
 import com.shopizer.shipping.model.rules.conditions.OperatorConstants;
 import com.shopizer.shipping.model.rules.results.Result;
 import com.shopizer.shipping.model.rules.results.ResultOption;
-
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.info.License;
 
 @Configuration
 public class ShippingConfig {
@@ -47,6 +47,17 @@ public class ShippingConfig {
 	 * .description(appDesciption) .termsOfService("http://swagger.io/terms/")
 	 * .license(new License().name("Apache 2.0").url("http://springdoc.org"))); }
 	 */
+	
+	
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("*");
+			}
+		};
+	}
 	
 
 	
@@ -182,6 +193,82 @@ public class ShippingConfig {
 		results.add(r4);
 		
 		return results;
+	}
+	
+	@Bean
+	public List<Rule> defaultRules() {
+		
+		List<Rule> allRules = new ArrayList<Rule>();
+		Rule rule = new Rule();
+		rule.setActive(true);
+		rule.setOrder(1);
+		rule.setId(100L);
+		rule.setCode("test");
+		rule.setName("Shipping decision summer 2020");
+		rule.setTimeBased(true);
+		rule.setStartDate("2020-07-15");
+		rule.setEndDate("2020-10-15");
+		
+		allRules.add(rule);
+		
+		
+		//conditions
+		
+		
+		List<InputRule> conditions = new ArrayList<InputRule>();
+		
+		//base condition
+		InputRule ir = new InputRule();
+		ir.setCondition("and");
+		
+		//individual conditions
+		List<InputRule> individuals = new ArrayList<InputRule>();
+		
+		InputRule  shippingCountry = new InputRule();
+		shippingCountry.setField("shippingCountry");
+		shippingCountry.setOperator("in");
+		
+		List<String> value = new ArrayList<String>();
+		value.add("CA");
+		value.add("US");
+		shippingCountry.setValue(value);
+		
+		individuals.add(shippingCountry);
+		
+		InputRule  orderTotal = new InputRule();
+		orderTotal.setField("orderTotal");
+		orderTotal.setOperator(">");
+		
+		List<String> otvalue = new ArrayList<String>();
+		otvalue.add("100");
+
+		orderTotal.setValue(otvalue);
+		
+		individuals.add(orderTotal);
+		
+		ir.setRules(individuals);
+		conditions.add(ir);
+		
+		//results - free shipping shipping fedex
+		List<InputResult> results = new ArrayList<InputResult>();
+		InputResult r1 = new InputResult();
+		r1.setCode("free");
+		r1.setValue("true");
+		
+		results.add(r1);
+		
+		InputResult r2 = new InputResult();
+		r2.setCode("shippingMethod");
+		r2.setValue("fedex");
+		
+		results.add(r2);
+		
+		rule.setConditions(conditions);
+		rule.setResults(results);
+		
+		
+		return allRules;
+
 	}
 
 }

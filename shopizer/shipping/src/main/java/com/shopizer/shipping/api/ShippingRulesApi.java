@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopizer.shipping.api.utils.Constants;
+import com.shopizer.shipping.model.rules.Rule;
 import com.shopizer.shipping.model.rules.conditions.Condition;
 import com.shopizer.shipping.model.rules.results.Result;
 
@@ -28,6 +30,9 @@ public class ShippingRulesApi {
 	
 	@Autowired
 	private List<Result> defaultResults;
+	
+	@Autowired
+	private List<Rule> defaultRules;
 	
 
     //@Operation(summary = "List list of defined conditions", description = "List of predefined conditions", tags = { "shipping conditions" })
@@ -56,6 +61,27 @@ public class ShippingRulesApi {
     			.collect(Collectors.toList());
     	
 		return ordered;
+	}
+    
+    @GetMapping(value = "/shipping/rules", produces = { "application/json" })
+    @ResponseStatus(code = HttpStatus.OK)
+	public List<Rule> rules() {
+    	
+
+    	
+		return defaultRules;
+	}
+    
+    
+    @GetMapping(value = "/shipping/rules/{code}", produces = { "application/json" })
+    @ResponseStatus(code = HttpStatus.OK)
+	public Rule rule(
+			@PathVariable String code
+			) {
+    	
+
+    	
+		return defaultRules.get(0);
 	}
 
 }

@@ -9,11 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopizer.shipping.model.rules.FieldFormatEnum;
+import com.shopizer.shipping.model.rules.InputCondition;
 import com.shopizer.shipping.model.rules.InputResult;
-import com.shopizer.shipping.model.rules.InputRule;
 import com.shopizer.shipping.model.rules.Rule;
 import com.shopizer.shipping.model.rules.conditions.Condition;
 import com.shopizer.shipping.model.rules.conditions.ConditionOption;
@@ -21,8 +19,14 @@ import com.shopizer.shipping.model.rules.conditions.OperatorConstants;
 import com.shopizer.shipping.model.rules.results.Result;
 import com.shopizer.shipping.model.rules.results.ResultOption;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Configuration
 public class ShippingConfig {
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(ShippingConfig.class);
 	
 	
 	private static final List<String> operators_in = new ArrayList<String>(Arrays. asList(OperatorConstants.IN,OperatorConstants.NOT));
@@ -63,6 +67,7 @@ public class ShippingConfig {
 	
 	@Bean
 	public List<Condition> defaultConditions() {
+		log.debug("default conditions");
 		
 		List<Condition> conditions = new ArrayList<Condition>();
 		
@@ -138,6 +143,8 @@ public class ShippingConfig {
 	@Bean
 	public List<Result> defaultResults() {
 		
+		log.debug("default results");
+		
 		List<Result> results = new ArrayList<Result>();
 		
 		Result r1 = new Result();
@@ -198,13 +205,17 @@ public class ShippingConfig {
 	@Bean
 	public List<Rule> defaultRules() {
 		
+		
+		log.debug("default rules");
+		
 		List<Rule> allRules = new ArrayList<Rule>();
 		Rule rule = new Rule();
 		rule.setActive(true);
 		rule.setOrder(1);
-		rule.setId(100L);
+		rule.setId(-1L);
 		rule.setCode("test");
 		rule.setName("Shipping decision summer 2020");
+		rule.setStore("DEFAULT");
 		rule.setTimeBased(true);
 		rule.setStartDate("2020-07-15");
 		rule.setEndDate("2020-10-15");
@@ -215,16 +226,16 @@ public class ShippingConfig {
 		//conditions
 		
 		
-		List<InputRule> conditions = new ArrayList<InputRule>();
+		List<InputCondition> conditions = new ArrayList<InputCondition>();
 		
 		//base condition
-		InputRule ir = new InputRule();
+		InputCondition ir = new InputCondition();
 		ir.setCondition("and");
 		
 		//individual conditions
-		List<InputRule> individuals = new ArrayList<InputRule>();
+		List<InputCondition> individuals = new ArrayList<InputCondition>();
 		
-		InputRule  shippingCountry = new InputRule();
+		InputCondition  shippingCountry = new InputCondition();
 		shippingCountry.setField("shippingCountry");
 		shippingCountry.setOperator("in");
 		
@@ -235,7 +246,7 @@ public class ShippingConfig {
 		
 		individuals.add(shippingCountry);
 		
-		InputRule  orderTotal = new InputRule();
+		InputCondition  orderTotal = new InputCondition();
 		orderTotal.setField("orderTotal");
 		orderTotal.setOperator(">");
 		

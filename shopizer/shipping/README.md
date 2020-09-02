@@ -26,3 +26,8 @@ docker push shopizerecomm/shipping-api:latest
 
 curl http://localhost:9090/actuator
 ```
+
+jdbc:h2:file:/Users⁩/⁨carlsamson⁩/⁨Documents⁩/⁨dev⁩/⁨workspaces⁩/⁨microservices⁩/⁨shopizer/shipping/shipping
+
+#TODO#
+

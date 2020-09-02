@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shopizer.shipping.model.rules.InputResult;
-import com.shopizer.shipping.model.rules.InputRule;
+import com.shopizer.shipping.model.rules.InputCondition;
 import com.shopizer.shipping.model.rules.Rule;
 
 @SpringBootTest
@@ -33,16 +33,16 @@ class ShippingApplicationTests {
 		//conditions
 		
 		
-		List<InputRule> conditions = new ArrayList<InputRule>();
+		List<InputCondition> conditions = new ArrayList<InputCondition>();
 		
 		//base condition
-		InputRule ir = new InputRule();
+		InputCondition ir = new InputCondition();
 		ir.setCondition("and");
 		
 		//individual conditions
-		List<InputRule> individuals = new ArrayList<InputRule>();
+		List<InputCondition> individuals = new ArrayList<InputCondition>();
 		
-		InputRule  shippingCountry = new InputRule();
+		InputCondition  shippingCountry = new InputCondition();
 		shippingCountry.setField("shippingCountry");
 		shippingCountry.setOperator("in");
 		
@@ -53,7 +53,7 @@ class ShippingApplicationTests {
 		
 		individuals.add(shippingCountry);
 		
-		InputRule  orderTotal = new InputRule();
+		InputCondition  orderTotal = new InputCondition();
 		orderTotal.setField("orderTotal");
 		orderTotal.setOperator("=");
 		

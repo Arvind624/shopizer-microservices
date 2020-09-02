@@ -2,6 +2,12 @@
 
 ## WIP shopizer microservices
 
+Import as maven project
+- catalog
+- common-libs
+- shopping-cart
+- config-server
+
 
 ### For building images
 

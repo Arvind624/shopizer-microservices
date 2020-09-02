@@ -1,11 +1,17 @@
 package com.shopizer.catalog.api;
 
+import static com.shopizer.commonlibs.constants.DefaultConstants.DEFAULT_QUANTITY;
+import static com.shopizer.commonlibs.constants.DefaultConstants.DEFAULT_STORE;
+import static com.shopizer.commonlibs.constants.DefaultConstants.START_COUNT;
+import static com.shopizer.commonlibs.constants.DefaultConstants.DEFAULT_LANG;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopizer.catalog.api.utils.Constants;
+import com.shopizer.commonlibs.apis.ReadableList;
+import com.shopizer.model.category.ReadableCategory;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -22,12 +28,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 //		@Tag(name = "Category management resource", description = "Manage category and attached products") })
 @Tag(name = "category", description = "Category management API")
 public class CategoryApi {
-	
-	
-	private static final String START_COUNT = "0";
-	private static final String DEFAULT_QUANTITY = "10";
-	private static final String DEFAULT_STORE = "DEFAULT";
-	
 
 	
 	/**
@@ -48,13 +48,11 @@ public class CategoryApi {
         @ApiResponse(responseCode = "200", description = "successful operation", 
                 content = @Content(array = @ArraySchema(schema = @Schema(implementation = String.class)))) })	
     @GetMapping(value = "/category", produces = { "application/json" })
-	public String list(
-			//@RequestParam(value = "store", required = false) String store,
-			//@RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
-			@RequestParam(value = "code", required = false, defaultValue=DEFAULT_STORE) String code,//starting from category
-			@RequestParam(value = "name", required = false) String name, 
-			//@ApiIgnore MerchantStore merchantStore,
-			//@ApiIgnore Language language,
+	public ReadableList<ReadableCategory> list(
+			@RequestParam(value = "store", required = false, defaultValue=DEFAULT_STORE) String code,//which store
+			@RequestParam(value = "lang", required = false, defaultValue=DEFAULT_LANG) String language,//which language
+			@RequestParam(value = "name", required = false) String name,//filter name
+			@RequestParam(value = "root", required = false) String root, //which root category
 			@RequestParam(value = "page", required = false, defaultValue = START_COUNT) Integer page,
 			@RequestParam(value = "count", required = false, defaultValue = DEFAULT_QUANTITY) Integer count) {
 		
@@ -63,32 +61,37 @@ public class CategoryApi {
 		//criteria.setName(name);
 		//return categoryFacade.getCategoryHierarchy(merchantStore, criteria, DEFAULT_CATEGORY_DEPTH, language, filter,
 		//		page, count);
-		return "List of category";
+		return null;
 	}
+    
+    
+    /**
+     * Category details (YES)
+     */
 	
 
     /**
-     * Create category
+     * Create category (NO)
      */
     
     /**
-     * Edit category
+     * Edit category (NO)
      */
     
     /**
-     * Remove category
+     * Remove category (NO)
      */
     
     /**
-     * Category unique
+     * Category unique (NO)
      */
     
     /**
-     * Move category
+     * Move category (NO)
      */
     
     /**
-     * Update visible (patch)
+     * Update visible (patch) (NO)
      */
 
 }

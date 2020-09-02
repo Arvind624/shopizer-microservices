@@ -4,16 +4,28 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseInputRule implements Serializable {
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+
+public class BaseCondition implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Column(name = "FIELD")
 	private String field = null;
+	@Column(name = "OPERATOR")
     private String operator = null;
+	@Column(name = "ENTITY")
     private String entity = null; //might be removed
+	
+	@ElementCollection
+	@CollectionTable(name = "VALUE")
     private List<String> value = new ArrayList<String>();
+    
+    
 	public String getField() {
 		return field;
 	}

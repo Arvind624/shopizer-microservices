@@ -2,6 +2,8 @@
 
 ## WIP shopizer microservices
 
+microservices ecosystem of Shopizer
+
 Import as maven project
 - catalog
 - common-libs

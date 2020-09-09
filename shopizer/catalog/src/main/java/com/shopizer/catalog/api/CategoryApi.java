@@ -51,7 +51,6 @@ public class CategoryApi {
 	public ReadableList<ReadableCategory> list(
 			@RequestParam(value = "store", required = false, defaultValue=DEFAULT_STORE) String code,//which store
 			@RequestParam(value = "lang", required = false, defaultValue=DEFAULT_LANG) String language,//which language
-			@RequestParam(value = "name", required = false) String name,//filter name
 			@RequestParam(value = "root", required = false) String root, //which root category
 			@RequestParam(value = "page", required = false, defaultValue = START_COUNT) Integer page,
 			@RequestParam(value = "count", required = false, defaultValue = DEFAULT_QUANTITY) Integer count) {

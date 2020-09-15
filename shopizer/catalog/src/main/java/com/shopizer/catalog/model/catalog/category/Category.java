@@ -38,7 +38,7 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 @Entity
 //@EntityListeners(value = com.salesmanager.core.model.common.audit.AuditListener.class)
 @Table(name = "CATEGORY", schema= SchemaConstants.SALESMANAGER_SCHEMA,uniqueConstraints=
-    @UniqueConstraint(columnNames = {"MERCHANT_ID", "CODE"}) )
+    @UniqueConstraint(columnNames = {"MERCHANT", "CODE"}) )
 public class Category extends Auditable<String> implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -52,7 +52,7 @@ public class Category extends Auditable<String> implements Serializable {
     @OneToMany(mappedBy="category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CategoryDescription> descriptions = new HashSet<CategoryDescription>();
 
-    @JoinColumn(name="MERCHANT", nullable=false)
+    @Column(name="MERCHANT", nullable=false)
     private String merchantStore;
     
     @ManyToOne

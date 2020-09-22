@@ -2,6 +2,7 @@ package com.shopizer.catalog.config;
 
 import java.util.Optional;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+@EntityScan({"com.shopizer.db","com.shopizer.catalog.model"})
 public class PersistenceJPAConfig {
 
 	/**

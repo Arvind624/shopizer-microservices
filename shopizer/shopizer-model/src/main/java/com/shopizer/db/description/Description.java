@@ -5,10 +5,14 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.Type;
+
+import com.shopizer.db.references.language.Language;
 
 
 @MappedSuperclass
@@ -17,8 +21,10 @@ public class Description implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 
-	@Column(name = "LANGUAGE_CODE")
-	private String language;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "LANGUAGE_ID")
+	private Language language;
 	
 	@NotEmpty
 	@Column(name="NAME", nullable = false, length=120)
@@ -57,16 +63,6 @@ public class Description implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-
-	public String getLanguage() {
-		return language;
-	}
-
-
-	public void setLanguage(String language) {
-		this.language = language;
 	}
 
 }

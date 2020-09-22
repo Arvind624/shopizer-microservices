@@ -13,19 +13,19 @@ import javax.persistence.TableGenerator;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.shopizer.catalog.SchemaConstants;
+import com.shopizer.db.SchemaConstants;
 import com.shopizer.db.description.Description;
 
 
 @Entity
-@Table(name="CATEGORY_DESCRIPTION", schema=SchemaConstants.SALESMANAGER_SCHEMA,uniqueConstraints={
+@Table(name="CATEGORY_DESCRIPTION",uniqueConstraints={
 		@UniqueConstraint(columnNames={
 			"CATEGORY_ID",
-			"LANGUAGE_CODE"
+			"LANGUAGE_ID"
 		})
 	}
 )
-@TableGenerator(name = "description_gen", table = "CATALOG_SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "category_description_seq", allocationSize = com.shopizer.db.description.SchemaConstants.DESCRIPTION_ID_ALLOCATION_SIZE, initialValue = com.shopizer.db.description.SchemaConstants.DESCRIPTION_ID_START_VALUE)
+@TableGenerator(name = "description_gen", table = "CATALOG_SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "category_description_seq", allocationSize = com.shopizer.db.SchemaConstants.DESCRIPTION_ID_ALLOCATION_SIZE, initialValue = com.shopizer.db.SchemaConstants.DESCRIPTION_ID_START_VALUE)
 public class CategoryDescription extends Description {
 	private static final long serialVersionUID = 1L;
 	

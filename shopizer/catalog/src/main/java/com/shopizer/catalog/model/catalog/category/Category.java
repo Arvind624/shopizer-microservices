@@ -22,23 +22,14 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
-import com.shopizer.catalog.SchemaConstants;
+import com.shopizer.db.SchemaConstants;
 import com.shopizer.db.audit.Auditable;
+import com.shopizer.db.merchant.MerchantStore;
 
-
-
-/**
-import org.springframework.data.domain.Auditable;
-
-import com.salesmanager.core.model.common.audit.AuditSection;
-import com.salesmanager.core.model.generic.SalesManagerEntity;
-import com.salesmanager.core.model.merchant.MerchantStore;
-**/
 
 @Entity
-//@EntityListeners(value = com.salesmanager.core.model.common.audit.AuditListener.class)
-@Table(name = "CATEGORY", schema= SchemaConstants.SALESMANAGER_SCHEMA,uniqueConstraints=
-    @UniqueConstraint(columnNames = {"MERCHANT", "CODE"}) )
+@Table(name = "CATEGORY",uniqueConstraints=
+    @UniqueConstraint(columnNames = {"MERCHANT_ID", "CODE"}) )
 public class Category extends Auditable<String> implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -52,8 +43,9 @@ public class Category extends Auditable<String> implements Serializable {
     @OneToMany(mappedBy="category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CategoryDescription> descriptions = new HashSet<CategoryDescription>();
 
-    @Column(name="MERCHANT", nullable=false)
-    private String merchantStore;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="MERCHANT_ID", nullable=false)
+    private MerchantStore merchantStore;
     
     @ManyToOne
     @JoinColumn(name = "PARENT_ID")

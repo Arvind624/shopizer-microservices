@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.shopizer.catalog" })
+@ComponentScan(basePackages = { "com.shopizer" })
 public class CatalogApplication {
 
 	public static void main(String[] args) {

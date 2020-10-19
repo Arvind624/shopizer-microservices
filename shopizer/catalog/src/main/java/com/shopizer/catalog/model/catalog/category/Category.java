@@ -22,7 +22,6 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
-import com.shopizer.db.SchemaConstants;
 import com.shopizer.db.audit.Auditable;
 import com.shopizer.db.merchant.MerchantStore;
 

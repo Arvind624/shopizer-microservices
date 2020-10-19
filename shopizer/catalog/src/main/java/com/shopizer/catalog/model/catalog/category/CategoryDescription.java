@@ -13,7 +13,6 @@ import javax.persistence.TableGenerator;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.shopizer.db.SchemaConstants;
 import com.shopizer.db.description.Description;
 
 
